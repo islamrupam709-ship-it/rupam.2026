@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.rupam.aistudio" ExtensionBundleVersion="1.0.0"
+    ExtensionBundleName="Rupam AI Studio" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ExtensionList>
+        <Extension Id="com.rupam.aistudio" Version="1.0.0" />
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <!-- Adobe Premiere Pro CSXS Host Support -->
+            <Host Name="PPRO" Version="[13.0,99.9]" />
+            <!-- Adobe After Effects Host Support -->
+            <Host Name="AEFT" Version="[16.0,99.9]" />
+        </HostList>
+        <LocaleList>
+            <Locale Code="All" />
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="9.0" />
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="com.rupam.aistudio">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./index.html</MainPath>
+                    <ScriptPath>./jsx/index.jsx</ScriptPath>
+                    <CEPEngine>
+                        <NodeJS>
+                            <Enable>true</Enable>
+                        </NodeJS>
+                    </CEPEngine>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>
+                    <Menu>Rupam AI Studio</Menu>
+                    <Geometry>
+                        <Size>
+                            <Height>600</Height>
+                            <Width>350</Width>
+                        </Size>
+                        <MinSize>
+                            <Height>450</Height>
+                            <Width>300</Width>
+                        </MinSize>
+                        <MaxSize>
+                            <Height>1400</Height>
+                            <Width>800</Width>
+                        </MaxSize>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+</ExtensionManifest>

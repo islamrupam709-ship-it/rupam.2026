@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupam AI Studio - Dual Host Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="panel-container">
+        <!-- Brand Header with Central Logo -->
+        <header class="app-header">
+            <div class="brand-hero">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Rupam AI Studio" class="brand-logo" id="brandLogo" onerror="this.classList.add('img-fallback')">
+                    <div class="logo-vector-fallback">
+                        <svg class="fallback-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="2" y="2" width="20" height="20" rx="4"></rect>
+                            <path d="M7 17l9.2-9.2M17 17V8H8"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="brand-title-area">
+                    <h1 class="brand-heading">RUPAM AI STUDIO</h1>
+                    <div class="brand-subrow">
+                        <span class="host-tag" id="activeHostTag">PPRO / AEFT</span>
+                        <div class="connection-status" id="connectionStatus" title="Host Application Status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Detecting Host...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Modern Adobe Tabs Navigation -->
+        <nav class="nav-tabs" role="tablist">
+            <button class="tab-btn active" data-tab="tab-text2img" role="tab" id="tabBtnT2I">
+                <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span class="tab-label">4K Text Gen</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-img2img" role="tab" id="tabBtnI2I">
+                <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span class="tab-label">4K Img2Img</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-text-anim" role="tab" id="tabBtnTextAnim">
+                <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                    <line x1="9" y1="20" x2="15" y2="20"></line>
+                    <line x1="12" y1="4" x2="12" y2="20"></line>
+                </svg>
+                <span class="tab-label">500 Text FX</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-anime-pack" role="tab" id="tabBtnAnimePack">
+                <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span class="tab-label">Anime & 3D</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-history" role="tab" id="tabBtnHistory">
+                <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="tab-label">Library</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- TAB 1: 4K TEXT TO IMAGE GENERATOR -->
+            <section id="tab-text2img" class="tab-panel active">
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="t2iPrompt" class="section-label">4K VISUAL PROMPT</label>
+                        <button type="button" class="action-link-btn" id="btnRandomT2IPrompt">
+                            <svg class="mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="3"></rect>
+                                <circle cx="8" cy="8" r="1.5" fill="currentColor"></circle>
+                                <circle cx="16" cy="16" r="1.5" fill="currentColor"></circle>
+                                <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+                            </svg>
+                            <span>Inspire</span>
+                        </button>
+                    </div>
+                    <textarea id="t2iPrompt" rows="3" class="styled-textarea" placeholder="Cinematic photorealistic shot of an ethereal temple in the clouds, volumetric lighting, 8k resolution, raw photography..."></textarea>
+                </div>
+
+                <!-- 4K Resolution & Aspect Ratio -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label class="section-label">4K RESOLUTION PRESET</label>
+                        <span class="resolution-indicator" id="resIndicatorLabel">3840 x 2160 UHD</span>
+                    </div>
+                    <div class="pill-group aspect-pills" id="aspectRatioGroup">
+                        <button type="button" class="pill active" data-aspect="16:9" data-w="3840" data-h="2160">16:9 (3840x2160)</button>
+                        <button type="button" class="pill" data-aspect="9:16" data-w="2160" data-h="3840">9:16 (Shorts/Reel)</button>
+                        <button type="button" class="pill" data-aspect="1:1" data-w="2160" data-h="2160">1:1 (Square)</button>
+                        <button type="button" class="pill" data-aspect="4:3" data-w="2880" data-h="2160">4:3 (Classic)</button>
+                    </div>
+                </div>
+
+                <!-- Style Presets -->
+                <div class="form-group">
+                    <label class="section-label">STYLE PRESET</label>
+                    <div class="pill-group style-pills" id="t2iStyleGroup">
+                        <button type="button" class="pill active" data-style="Cinematic">Cinematic</button>
+                        <button type="button" class="pill" data-style="Realistic">Realistic</button>
+                        <button type="button" class="pill" data-style="Anime">Anime</button>
+                        <button type="button" class="pill" data-style="3D Render">3D Render</button>
+                        <button type="button" class="pill" data-style="Digital Art">Digital Art</button>
+                        <button type="button" class="pill" data-style="Fantasy">Fantasy</button>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings Accordion -->
+                <details class="advanced-details">
+                    <summary>
+                        <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <span>Model & Seed Settings</span>
+                    </summary>
+                    <div class="advanced-body">
+                        <div class="form-group">
+                            <label for="t2iModel">AI Generator Engine</label>
+                            <select id="t2iModel" class="styled-select">
+                                <option value="flux" selected>Flux Pro (Ultra-HD 4K)</option>
+                                <option value="flux-realism">Flux Realism (Photorealistic)</option>
+                                <option value="turbo">SDXL Turbo (High Speed)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="t2iSeed">Seed</label>
+                            <input type="number" id="t2iSeed" placeholder="Random (Auto)" class="styled-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="t2iNegative">Negative Filter</label>
+                            <input type="text" id="t2iNegative" placeholder="blurry, distorted, artifacts, lowres" class="styled-input">
+                        </div>
+                    </div>
+                </details>
+
+                <button type="button" class="btn btn-primary btn-generate" id="btnGenerateT2I">
+                    <span class="btn-spinner hidden"></span>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span class="btn-text">Generate 4K Master Image</span>
+                </button>
+            </section>
+
+            <!-- TAB 2: 4K IMAGE TO IMAGE -->
+            <section id="tab-img2img" class="tab-panel">
+                <div class="form-group">
+                    <label class="section-label">REFERENCE IMAGE</label>
+                    <div class="drop-zone" id="imgDropZone">
+                        <input type="file" id="i2iFileInput" accept="image/*" class="file-hidden">
+                        <div class="drop-zone-placeholder" id="dropPlaceholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p class="drop-text">Drag image here or <span class="highlight">Browse</span></p>
+                            <span class="drop-subtext">JPG, PNG, WebP supported</span>
+                        </div>
+                        <div class="drop-zone-preview hidden" id="dropPreviewContainer">
+                            <img id="refImagePreview" src="" alt="Reference Image">
+                            <button type="button" class="remove-ref-btn" id="btnRemoveRefImage" title="Remove reference">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-with-button" style="margin-top: 8px;">
+                        <input type="url" id="refImageUrlInput" placeholder="Or enter image URL..." class="styled-input">
+                        <button type="button" class="btn btn-secondary" id="btnLoadRefUrl">Load</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="i2iPrompt" class="section-label">4K RESTYLE PROMPT</label>
+                    <textarea id="i2iPrompt" rows="3" class="styled-textarea" placeholder="Transform into a futuristic cinematic anime movie still, 4k detail, dramatic rim light..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="i2iStrength" class="section-label">INFLUENCE STRENGTH</label>
+                        <span class="metric-badge" id="strengthValue">0.75</span>
+                    </div>
+                    <input type="range" id="i2iStrength" min="0.1" max="1.0" step="0.05" value="0.75" class="styled-slider">
+                </div>
+
+                <div class="form-group">
+                    <label class="section-label">STYLE PRESET</label>
+                    <div class="pill-group style-pills" id="i2iStyleGroup">
+                        <button type="button" class="pill active" data-style="Cinematic">Cinematic</button>
+                        <button type="button" class="pill" data-style="Realistic">Realistic</button>
+                        <button type="button" class="pill" data-style="Anime">Anime</button>
+                        <button type="button" class="pill" data-style="3D Render">3D Render</button>
+                        <button type="button" class="pill" data-style="Oil Painting">Oil Painting</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-generate" id="btnGenerateI2I">
+                    <span class="btn-spinner hidden"></span>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                    </svg>
+                    <span class="btn-text">Transform to 4K Master</span>
+                </button>
+            </section>
+
+            <!-- TAB 3: 500 TEXT ANIMATIONS (PREMIERE & AFTER EFFECTS) -->
+            <section id="tab-text-anim" class="tab-panel">
+                <!-- Sound Effects (SFX) Toggle Switch -->
+                <div class="sfx-toggle-card">
+                    <div class="sfx-toggle-info">
+                        <div class="sfx-title-row">
+                            <svg class="sfx-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <span class="sfx-label-main">Sound Effects (SFX) Sync</span>
+                        </div>
+                        <p class="sfx-desc">Automatically drops matching SFX (Swoosh, Pop, Click, Glitch) on audio track at playhead.</p>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSfxSync" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+
+                <!-- Text Caption Input -->
+                <div class="form-group">
+                    <label for="animTextInput" class="section-label">TEXT CAPTION CONTENT</label>
+                    <input type="text" id="animTextInput" class="styled-input" value="RUPAM AI STUDIO" placeholder="Enter text to animate...">
+                </div>
+
+                <!-- Live Motion Preview Monitor -->
+                <div class="motion-preview-monitor" id="motionPreviewMonitor">
+                    <div class="monitor-header">
+                        <div class="monitor-status">
+                            <span class="pulse-dot"></span>
+                            <span class="monitor-title" id="monitorPresetTitle">Hover preset card to preview</span>
+                        </div>
+                        <div class="monitor-badges">
+                            <span class="monitor-badge sfx-badge" id="monitorSfxBadge">SWOOSH SFX</span>
+                            <span class="monitor-badge fps-badge">60 FPS MOTION</span>
+                        </div>
+                    </div>
+                    <div class="monitor-stage" id="monitorStage">
+                        <div class="monitor-text-sample anim-preview-slide" id="monitorTextSample">RUPAM AI STUDIO</div>
+                    </div>
+                    <div class="monitor-footer">
+                        <span class="monitor-hint">Hover any card below for live animated preview • Click to apply to sequence</span>
+                    </div>
+                </div>
+
+                <!-- Category Filters & Search -->
+                <div class="preset-filter-row">
+                    <input type="text" id="presetSearchInput" class="styled-input preset-search" placeholder="Search 500 presets (e.g. bounce, slide, lower third)...">
+                    <div class="pill-group category-pills" id="animCategoryPills">
+                        <button type="button" class="pill active" data-cat="all">All (500)</button>
+                        <button type="button" class="pill" data-cat="kinetic">Kinetic (80)</button>
+                        <button type="button" class="pill" data-cat="slide">Slide (75)</button>
+                        <button type="button" class="pill" data-cat="typewriter">Typewriter (65)</button>
+                        <button type="button" class="pill" data-cat="bounce">Bounce (85)</button>
+                        <button type="button" class="pill" data-cat="lower_third">Lower Thirds (95)</button>
+                        <button type="button" class="pill" data-cat="fade">Fade & Zoom (100)</button>
+                    </div>
+                </div>
+
+                <!-- Presets Grid -->
+                <div class="presets-container" id="presetsList">
+                    <!-- Populated dynamically with 500 presets -->
+                </div>
+            </section>
+
+            <!-- TAB 4: VIRAL ANIME & 3D EDITING PACK -->
+            <section id="tab-anime-pack" class="tab-panel">
+                <!-- SFX Banner -->
+                <div class="sfx-status-banner">
+                    <svg class="mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <span>SFX Sync: <strong id="sfxStatusPack">ENABLED (Glitch / Cyber / Whip)</strong></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="animeTextInput" class="section-label">VIRAL CAPTION TEXT</label>
+                    <input type="text" id="animeTextInput" class="styled-input" value="UNLEASH THE POWER" placeholder="Enter viral caption text...">
+                </div>
+
+                <!-- Viral Motion Preview Monitor -->
+                <div class="motion-preview-monitor viral-monitor" id="viralPreviewMonitor">
+                    <div class="monitor-header">
+                        <div class="monitor-status">
+                            <span class="pulse-dot neon-dot"></span>
+                            <span class="monitor-title" id="viralMonitorPresetTitle">Hover viral effect to preview</span>
+                        </div>
+                        <div class="monitor-badges">
+                            <span class="monitor-badge sfx-badge" id="viralMonitorSfxBadge">CYBER SFX</span>
+                            <span class="monitor-badge viral-fps-badge">VFX 60FPS</span>
+                        </div>
+                    </div>
+                    <div class="monitor-stage viral-stage" id="viralMonitorStage">
+                        <div class="monitor-text-sample anim-preview-3d" id="viralMonitorTextSample">UNLEASH THE POWER</div>
+                    </div>
+                    <div class="monitor-footer">
+                        <span class="monitor-hint">Hover cards for 3D depth, neon & anime motion previews • Click to apply</span>
+                    </div>
+                </div>
+
+                <!-- Anime / 3D Categories -->
+                <div class="pill-group style-pills" id="viralCategoryGroup">
+                    <button type="button" class="pill active" data-vcat="3d">3D Kinetic Motion</button>
+                    <button type="button" class="pill" data-vcat="neon">Neon & Cyberpunk</button>
+                    <button type="button" class="pill" data-vcat="anime">Anime Shonen Edit</button>
+                    <button type="button" class="pill" data-vcat="glitch">Glitch & Shake</button>
+                </div>
+
+                <!-- Viral Cards Container -->
+                <div class="presets-container viral-container" id="viralPresetsList">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- TAB 5: LIBRARY -->
+            <section id="tab-history" class="tab-panel">
+                <div class="library-header">
+                    <h3 class="section-label">SAVED 4K ASSETS & GENERATIONS</h3>
+                    <button type="button" class="action-link-btn" id="btnClearHistory">
+                        <svg class="mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>Clear All</span>
+                    </button>
+                </div>
+                <div class="history-grid" id="historyList">
+                    <div class="empty-state" id="emptyHistoryMsg">
+                        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="M7 15h10M7 9h6"></path>
+                        </svg>
+                        <p>No saved 4K visuals yet. Create a generation to populate the library.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREVIEW & TIMELINE IMPORT (Card) -->
+            <section class="preview-section" id="previewSection">
+                <div class="preview-header">
+                    <div class="preview-tags">
+                        <span class="preview-badge" id="previewTypeBadge">4K PREVIEW</span>
+                        <span class="codec-badge png-master" id="previewCodecBadge">4K UHD MASTER (3840x2160)</span>
+                    </div>
+                    <span class="preview-meta" id="previewMeta">3840x2160 • 16:9</span>
+                </div>
+
+                <div class="preview-media-box" id="previewMediaBox">
+                    <div class="preview-placeholder" id="previewPlaceholder">
+                        <svg class="placeholder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                            <rect x="2" y="3" width="20" height="18" rx="3"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <p>Generated 4K AI visual will appear here</p>
+                    </div>
+
+                    <img id="previewImage" class="preview-content hidden" alt="4K Generated AI Output">
+
+                    <div class="preview-loading-overlay hidden" id="previewLoading">
+                        <div class="spinner-large"></div>
+                        <span class="loading-label" id="loadingLabel">Rendering 4K UHD Master...</span>
+                    </div>
+                </div>
+
+                <!-- Host Direct Actions -->
+                <div class="premiere-actions">
+                    <button type="button" class="btn btn-premiere-primary" id="btnImportToSequence" disabled>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 14h6m-3-3l3 3-3 3"></path>
+                            <rect x="14" y="4" width="6" height="16" rx="1"></rect>
+                            <line x1="2" y1="4" x2="12" y2="4"></line>
+                            <line x1="2" y1="20" x2="12" y2="20"></line>
+                        </svg>
+                        <span class="action-text" id="actionBtnImportText">Import 4K to Timeline</span>
+                    </button>
+                    <div class="action-sub-buttons">
+                        <button type="button" class="btn btn-premiere-secondary" id="btnImportToBin" disabled title="Import to Project Bin">
+                            <svg class="btn-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                <line x1="12" y1="11" x2="12" y2="17"></line>
+                                <line x1="9" y1="14" x2="15" y2="14"></line>
+                            </svg>
+                            <span>Add to Bin</span>
+                        </button>
+                        <button type="button" class="btn btn-premiere-secondary" id="btnSaveToDisk" disabled title="Save lossless PNG to disk">
+                            <svg class="btn-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Save 4K</span>
+                        </button>
+                        <button type="button" class="btn btn-premiere-secondary" id="btnCopyPrompt" title="Copy Prompt">
+                            <svg class="btn-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>

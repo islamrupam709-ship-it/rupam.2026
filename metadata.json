@@ -1,0 +1,6 @@
+{
+  "name": "Rupam AI Studio",
+  "description": "Adobe Premiere Pro CEP Extension & Companion Studio for AI image and video generation with direct timeline import.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
